@@ -6,14 +6,28 @@ import java.util.ArrayList;
  * La clase Inventario gestiona una colección de productos.
  */
 public class Inventario {
+
     private ArrayList<Producto> productos;  // Lista de productos en el inventario.
 
     /**
-     * Constructor para crear un objeto de la clase Inventario.
-     * Inicializa la lista de productos como una lista vacía.
+     * Constructor para crear un objeto de la clase Inventario. Inicializa la
+     * lista de productos como una lista vacía.
      */
     public Inventario() {
         this.productos = new ArrayList<>();
+    }
+
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    /**
+     * Establece la lista de productos en el inventario.
+     *
+     * @param productos La nueva lista de productos.
+     */
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
     }
 
     /**
@@ -21,8 +35,19 @@ public class Inventario {
      *
      * @param producto El objeto Producto que se desea agregar al inventario.
      */
-    public void agregarProducto(Producto producto) {
+    public boolean agregarProducto(Producto producto) {
+        int idProducto = producto.getIdProducto();
+
+        // Verificar si ya existe un producto con la misma ID
+        for (Producto p : productos) {
+            if (p.getIdProducto() == idProducto) {
+                return false; // Producto con la misma ID ya existe
+            }
+        }
+
+        // Si no hay un producto con la misma ID, agrega el nuevo producto
         productos.add(producto);
+        return true; // Producto agregado con éxito
     }
 
     /**
@@ -37,9 +62,10 @@ public class Inventario {
     /**
      * Edita un campo específico de un producto en el inventario.
      *
-     * @param producto    El objeto Producto que se desea editar.
-     * @param campo       El campo a editar (nombre, descripción, existencia o precio).
-     * @param nuevoValor  El nuevo valor que se establecerá en el campo.
+     * @param producto El objeto Producto que se desea editar.
+     * @param campo El campo a editar (nombre, descripción, existencia o
+     * precio).
+     * @param nuevoValor El nuevo valor que se establecerá en el campo.
      */
     public void editarProducto(Producto producto, String campo, String nuevoValor) {
         if (producto != null) {

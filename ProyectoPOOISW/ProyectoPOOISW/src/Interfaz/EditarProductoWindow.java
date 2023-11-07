@@ -15,9 +15,11 @@ import java.awt.event.ActionListener;
 import Proyecto.*;
 
 /**
- * La clase EditarProductoWindow representa una ventana de diálogo para editar un producto del inventario.
+ * La clase EditarProductoWindow representa una ventana de diálogo para editar
+ * un producto del inventario.
  */
 public class EditarProductoWindow {
+
     private JDialog dialog;  // Ventana de diálogo.
     private JTextField idField;  // Campo de texto para ingresar el ID del producto a editar.
     private JTextField campoField;  // Campo de texto para ingresar el campo a editar (nombre, descripción, existencia o precio).
@@ -26,12 +28,15 @@ public class EditarProductoWindow {
     /**
      * Constructor para crear un objeto de la clase EditarProductoWindow.
      *
-     * @param sistema Un objeto de la clase SistemaGestionInventarios que gestiona la lógica de la aplicación.
+     * @param sistema Un objeto de la clase SistemaGestionInventarios que
+     * gestiona la lógica de la aplicación.
+     * @param usuario Un objeto de la clase usuario que gestiona el rol del
+     * usuario.
      */
-    public EditarProductoWindow(SistemaGestionInventarios sistema) {
+    public EditarProductoWindow(SistemaGestionInventarios sistema, Usuario usuario) {
         dialog = new JDialog();
         dialog.setTitle("Editar Producto");
-        dialog.setSize(400, 150);
+        dialog.setSize(400, 200);
         dialog.setLayout(new GridLayout(4, 2));
 
         JLabel idLabel = new JLabel("ID del Producto a Editar:");
@@ -45,14 +50,19 @@ public class EditarProductoWindow {
 
         JButton editarButton = new JButton("Editar Producto");
 
+        JButton regresarButton = new JButton("Regresar al Menú Principal");
+
         dialog.add(idLabel);
         dialog.add(idField);
+        dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(campoLabel);
         dialog.add(campoField);
+        dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(nuevoValorLabel);
         dialog.add(nuevoValorField);
         dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(editarButton);
+        dialog.add(regresarButton);
 
         editarButton.addActionListener(new ActionListener() {
             @Override
@@ -65,30 +75,26 @@ public class EditarProductoWindow {
                     Producto producto = sistema.buscarProductoEnInventario(id);
 
                     if (producto != null) {
-                        // Realiza la edición del producto en el inventario
-                        if (campo.equalsIgnoreCase("nombre")) {
-                            producto.setNombre(nuevoValor);
-                        } else if (campo.equalsIgnoreCase("descripcion")) {
-                            producto.setDescripcion(nuevoValor);
-                        } else if (campo.equalsIgnoreCase("existencia")) {
-                            int existencia = Integer.parseInt(nuevoValor);
-                            producto.setExistencia(existencia);
-                        } else if (campo.equalsIgnoreCase("precio")) {
-                            double precio = Double.parseDouble(nuevoValor);
-                            producto.setPrecio(precio);
-                        } else {
-                            JOptionPane.showMessageDialog(dialog, "Campo no válido. Utilice 'nombre', 'descripcion', 'existencia' o 'precio'.");
-                            return;
-                        }
-
-                        JOptionPane.showMessageDialog(dialog, "Producto editado con éxito.");
-                        dialog.dispose(); // Cierra la ventana de diálogo
+                        sistema.editarProducto(usuario, producto, campo, nuevoValor);
                     } else {
                         JOptionPane.showMessageDialog(dialog, "Producto no encontrado en el inventario.");
                     }
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(dialog, "Por favor, ingrese valores válidos.");
                 }
+                idField.setText("");
+                campoField.setText("");
+                nuevoValorField.setText("");
+            }
+            
+        });
+
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose(); // Cierra la ventana de diálogo actual
+                new MainMenuWindow(sistema, usuario); // Abre el menú principal
             }
         });
 

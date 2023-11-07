@@ -7,20 +7,24 @@ public class Usuario {
     private int idUsuario;         // Identificador único del usuario.
     private String nombreUsuario;  // Nombre de usuario.
     private String contraseña;     // Contraseña del usuario.
-
+    private String rol;            //Rol de usuario
+    
     /**
      * Constructor para crear un objeto de la clase Usuario.
      *
      * @param idUsuario      Identificador único del usuario.
      * @param nombreUsuario  Nombre de usuario.
      * @param contraseña     Contraseña del usuario.
+     * @param rol            Rol del usuario.
      */
-    public Usuario(int idUsuario, String nombreUsuario, String contraseña) {
+    
+    public Usuario(int idUsuario, String nombreUsuario, String contraseña, String rol) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
+        this.rol = rol;
     }
-
+    
     /**
      * Obtiene el identificador único del usuario.
      *
@@ -74,5 +78,24 @@ public class Usuario {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+    
+        /**
+     * Obtiene el rol del usuario.
+     *
+     * @return El rol del usuario.
+     */
+    public String getRol() {
+        return rol;
+    }
+
+    /**
+     * Establece el rol del usuario.
+     *
+     * @param rol El nuevo rol del usuario del usuario.
+     */
+    public void setRol (String rol) {
+        this.rol = rol;
+    }
+    
 }
 

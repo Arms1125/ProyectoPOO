@@ -13,6 +13,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Proyecto.*;
+import java.awt.event.*;
+
 
 /**
  * La clase ResultadosWindow representa una ventana que muestra los resultados en una tabla.
@@ -25,7 +27,7 @@ public class ResultadosWindow {
      *
      * @param productos Una lista de objetos Producto que se mostrarán en la tabla.
      */
-    public ResultadosWindow(ArrayList<Producto> productos) {
+    public ResultadosWindow(ArrayList<Producto> productos,SistemaGestionInventarios sistema,Usuario usuario) {
         frame = new JFrame("Resultados");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -53,8 +55,21 @@ public class ResultadosWindow {
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(600, 400));
+        
+        JButton volverButton = new JButton("Volver al Menú Principal");
 
         frame.add(scrollPane);
+        frame.add(volverButton);
+        frame.setLayout(new FlowLayout());
+
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // Cierra la ventana de resultados
+                new MainMenuWindow(sistema,usuario); // Abre la ventana del menú principal
+            }
+        });
+        
         frame.pack();
         frame.setVisible(true);
     }

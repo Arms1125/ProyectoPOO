@@ -15,9 +15,11 @@ import java.awt.event.ActionListener;
 import Proyecto.*;
 
 /**
- * La clase AgregarProductoWindow representa una ventana de diálogo para agregar un nuevo producto al inventario.
+ * La clase AgregarProductoWindow representa una ventana de diálogo para agregar
+ * un nuevo producto al inventario.
  */
 public class AgregarProductoWindow {
+
     private JDialog dialog;  // Ventana de diálogo.
     private JTextField idField;  // Campo de texto para ingresar el ID del nuevo producto.
     private JTextField nombreField;  // Campo de texto para ingresar el nombre del nuevo producto.
@@ -28,9 +30,12 @@ public class AgregarProductoWindow {
     /**
      * Constructor para crear un objeto de la clase AgregarProductoWindow.
      *
-     * @param sistema Un objeto de la clase SistemaGestionInventarios que gestiona la lógica de la aplicación.
+     * @param sistema Un objeto de la clase SistemaGestionInventarios que
+     * gestiona la lógica de la aplicación.
+     * @param usuario Un objeto de la clase usuario que gestiona el rol del
+     * usuario.
      */
-    public AgregarProductoWindow(SistemaGestionInventarios sistema) {
+    public AgregarProductoWindow(SistemaGestionInventarios sistema, Usuario usuario) {
         dialog = new JDialog();
         dialog.setTitle("Agregar Producto");
         dialog.setSize(400, 200);
@@ -53,18 +58,25 @@ public class AgregarProductoWindow {
 
         JButton agregarButton = new JButton("Agregar Producto");
 
+        JButton regresarButton = new JButton("Regresar al Menú Principal");
+
         dialog.add(idLabel);
         dialog.add(idField);
+        dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(nombreLabel);
         dialog.add(nombreField);
+        dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(descripcionLabel);
         dialog.add(descripcionField);
+        dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(existenciaLabel);
         dialog.add(existenciaField);
+        dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(precioLabel);
         dialog.add(precioField);
         dialog.add(new JLabel("")); // Espacio en blanco
         dialog.add(agregarButton);
+        dialog.add(regresarButton);
 
         agregarButton.addActionListener(new ActionListener() {
             @Override
@@ -80,13 +92,24 @@ public class AgregarProductoWindow {
                     Producto nuevoProducto = new Producto(id, nombre, descripcion, existencia, precio);
 
                     // Agregar el nuevo producto al inventario
-                    sistema.agregarProductoAlInventario(nuevoProducto);
+                    sistema.agregarProductoAlInventario(usuario, nuevoProducto);
 
-                    JOptionPane.showMessageDialog(dialog, "Producto agregado al inventario con éxito.");
-                    dialog.dispose(); // Cierra la ventana de diálogo
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(dialog, "Por favor, ingrese valores válidos.");
                 }
+                idField.setText("");
+                nombreField.setText("");
+                descripcionField.setText("");
+                existenciaField.setText("");
+                precioField.setText("");
+            }
+        });
+
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose(); // Cierra la ventana de diálogo actual
+                new MainMenuWindow(sistema, usuario); // Abre el menú principal
             }
         });
 
