@@ -23,7 +23,7 @@ public class MainMenuWindow {
 
     private JFrame frame;  // Marco de la ventana.
     private JToolBar toolBar;  // Barra de herramientas.
-    private JPanel mainPanel;  // Primer panel.
+    private JPanel mainPanel, usuarioPanel;  // Primer panel.
 
     public MainMenuWindow(SistemaGestionInventarios sistema, Usuario usuario) {
         frame = new JFrame("Menú Principal");
@@ -47,14 +47,22 @@ public class MainMenuWindow {
         toolBar.add(editarProductoButton);
         toolBar.add(eliminarProductoButton);
         toolBar.add(listarProductosButton);
-        toolBar.add(crearUsuarioButton);
-        toolBar.add(cerrarSesionButton);
+
 
         // Panel principal
+        usuarioPanel = new JPanel();
+        usuarioPanel.setSize(200, 600);
         mainPanel = new JPanel();
         mainPanel.setLayout(new CardLayout());
 
+        
+        //botones del panel
+        usuarioPanel.add(crearUsuarioButton);
+        usuarioPanel.add(cerrarSesionButton);
+        
+        //añadir toolbar y paneles
         frame.add(toolBar, BorderLayout.NORTH);
+        frame.add(usuarioPanel,BorderLayout.WEST);
         frame.add(mainPanel, BorderLayout.CENTER);
 
         // Acciones de los botones

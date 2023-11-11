@@ -18,15 +18,17 @@ public class EditarProductoWindow {
 
     private JPanel panel; // Panel principal que contendrá los componentes.
     private JTextField idField;  // Campo de texto para ingresar el ID del producto a editar.
-    private JTextField campoField;  // Campo de texto para ingresar el campo a editar (nombre, descripción, existencia o precio).
     private JTextField nuevoValorField;  // Campo de texto para ingresar el nuevo valor del campo.
     private SistemaGestionInventarios sistema;
+    private JComboBox<String> rolComboBox;
 
     /**
      * Constructor para crear un objeto de la clase EditarProductoWindow.
      *
-     * @param sistema Un objeto de la clase SistemaGestionInventarios que gestiona la lógica de la aplicación.
-     * @param usuario Un objeto de la clase usuario que gestiona el rol del usuario.
+     * @param sistema Un objeto de la clase SistemaGestionInventarios que
+     * gestiona la lógica de la aplicación.
+     * @param usuario Un objeto de la clase usuario que gestiona el rol del
+     * usuario.
      */
     public EditarProductoWindow(SistemaGestionInventarios sistema, Usuario usuario) {
         this.sistema = sistema;
@@ -37,7 +39,8 @@ public class EditarProductoWindow {
         idField = new JTextField();
 
         JLabel campoLabel = new JLabel("Campo a Editar (nombre, descripcion, existencia o precio):");
-        campoField = new JTextField();
+        String[] roles = {"nombre", "descripcion", "exixtencia","precio"};
+        rolComboBox = new JComboBox<>(roles);
 
         JLabel nuevoValorLabel = new JLabel("Nuevo Valor:");
         nuevoValorField = new JTextField();
@@ -50,7 +53,7 @@ public class EditarProductoWindow {
         panel.add(idField);
         //panel.add(new JLabel("")); // Espacio en blanco
         panel.add(campoLabel);
-        panel.add(campoField);
+        panel.add(rolComboBox);
         //panel.add(new JLabel("")); // Espacio en blanco
         panel.add(nuevoValorLabel);
         panel.add(nuevoValorField);
@@ -63,7 +66,7 @@ public class EditarProductoWindow {
             public void actionPerformed(ActionEvent e) {
                 try {
                     int id = Integer.parseInt(idField.getText());
-                    String campo = campoField.getText();
+                    String campo = (String) rolComboBox.getSelectedItem();
                     String nuevoValor = nuevoValorField.getText();
 
                     Producto producto = sistema.buscarProductoEnInventario(id);
@@ -78,7 +81,6 @@ public class EditarProductoWindow {
                     JOptionPane.showMessageDialog(panel, "Por favor, ingrese valores válidos.");
                 }
                 idField.setText("");
-                campoField.setText("");
                 nuevoValorField.setText("");
             }
         });
