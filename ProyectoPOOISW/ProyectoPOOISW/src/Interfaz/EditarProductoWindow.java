@@ -14,30 +14,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Proyecto.*;
 
-/**
- * La clase EditarProductoWindow representa una ventana de diálogo para editar
- * un producto del inventario.
- */
 public class EditarProductoWindow {
 
-    private JDialog dialog;  // Ventana de diálogo.
+    private JPanel panel; // Panel principal que contendrá los componentes.
     private JTextField idField;  // Campo de texto para ingresar el ID del producto a editar.
     private JTextField campoField;  // Campo de texto para ingresar el campo a editar (nombre, descripción, existencia o precio).
     private JTextField nuevoValorField;  // Campo de texto para ingresar el nuevo valor del campo.
+    private SistemaGestionInventarios sistema;
 
     /**
      * Constructor para crear un objeto de la clase EditarProductoWindow.
      *
-     * @param sistema Un objeto de la clase SistemaGestionInventarios que
-     * gestiona la lógica de la aplicación.
-     * @param usuario Un objeto de la clase usuario que gestiona el rol del
-     * usuario.
+     * @param sistema Un objeto de la clase SistemaGestionInventarios que gestiona la lógica de la aplicación.
+     * @param usuario Un objeto de la clase usuario que gestiona el rol del usuario.
      */
     public EditarProductoWindow(SistemaGestionInventarios sistema, Usuario usuario) {
-        dialog = new JDialog();
-        dialog.setTitle("Editar Producto");
-        dialog.setSize(400, 200);
-        dialog.setLayout(new GridLayout(4, 2));
+        this.sistema = sistema;
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 2));
 
         JLabel idLabel = new JLabel("ID del Producto a Editar:");
         idField = new JTextField();
@@ -52,17 +46,17 @@ public class EditarProductoWindow {
 
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        dialog.add(idLabel);
-        dialog.add(idField);
-        dialog.add(new JLabel("")); // Espacio en blanco
-        dialog.add(campoLabel);
-        dialog.add(campoField);
-        dialog.add(new JLabel("")); // Espacio en blanco
-        dialog.add(nuevoValorLabel);
-        dialog.add(nuevoValorField);
-        dialog.add(new JLabel("")); // Espacio en blanco
-        dialog.add(editarButton);
-        dialog.add(regresarButton);
+        panel.add(idLabel);
+        panel.add(idField);
+        panel.add(new JLabel("")); // Espacio en blanco
+        panel.add(campoLabel);
+        panel.add(campoField);
+        panel.add(new JLabel("")); // Espacio en blanco
+        panel.add(nuevoValorLabel);
+        panel.add(nuevoValorField);
+        panel.add(new JLabel("")); // Espacio en blanco
+        panel.add(editarButton);
+        panel.add(regresarButton);
 
         editarButton.addActionListener(new ActionListener() {
             @Override
@@ -77,27 +71,34 @@ public class EditarProductoWindow {
                     if (producto != null) {
                         sistema.editarProducto(usuario, producto, campo, nuevoValor);
                     } else {
-                        JOptionPane.showMessageDialog(dialog, "Producto no encontrado en el inventario.");
+                        JOptionPane.showMessageDialog(panel, "Producto no encontrado en el inventario.");
                     }
 
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialog, "Por favor, ingrese valores válidos.");
+                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese valores válidos.");
                 }
                 idField.setText("");
                 campoField.setText("");
                 nuevoValorField.setText("");
             }
-            
         });
 
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dialog.dispose(); // Cierra la ventana de diálogo actual
-                new MainMenuWindow(sistema, usuario); // Abre el menú principal
+                // Realizar acciones adicionales si es necesario
+                // ...
+                panel.setVisible(false); // Ocultar el panel actual
             }
         });
+    }
 
-        dialog.setVisible(true);
+    /**
+     * Obtén el panel principal de la ventana.
+     *
+     * @return El panel principal de la ventana.
+     */
+    public JPanel getPanel() {
+        return panel;
     }
 }

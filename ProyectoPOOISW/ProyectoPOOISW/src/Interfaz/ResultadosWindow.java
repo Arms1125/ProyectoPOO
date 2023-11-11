@@ -15,21 +15,26 @@ import javax.swing.table.DefaultTableModel;
 import Proyecto.*;
 import java.awt.event.*;
 
-
 /**
- * La clase ResultadosWindow representa una ventana que muestra los resultados en una tabla.
+ * La clase ResultadosPanel representa un panel que muestra los resultados en una tabla.
  */
 public class ResultadosWindow {
-    private JFrame frame;  // Marco de la ventana.
+    private JPanel panel;  // Panel principal.
+    private SistemaGestionInventarios sistema;
+    private Usuario usuario;
 
     /**
-     * Constructor para crear un objeto de la clase ResultadosWindow.
+     * Constructor para crear un objeto de la clase ResultadosPanel.
      *
      * @param productos Una lista de objetos Producto que se mostrarán en la tabla.
+     * @param sistema   Un objeto de la clase SistemaGestionInventarios que gestiona la lógica de la aplicación.
+     * @param usuario   Un objeto de la clase usuario que gestiona el rol del usuario.
      */
-    public ResultadosWindow(ArrayList<Producto> productos,SistemaGestionInventarios sistema,Usuario usuario) {
-        frame = new JFrame("Resultados");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    public ResultadosWindow(ArrayList<Producto> productos, SistemaGestionInventarios sistema, Usuario usuario) {
+        this.sistema = sistema;
+        this.usuario = usuario;
+        panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
         // Crear un DefaultTableModel con las columnas deseadas
         DefaultTableModel model = new DefaultTableModel();
@@ -42,11 +47,11 @@ public class ResultadosWindow {
         // Llenar la tabla con los productos
         for (Producto producto : productos) {
             model.addRow(new Object[]{
-                producto.getIdProducto(),
-                producto.getNombre(),
-                producto.getDescripcion(),
-                producto.getExistencia(),
-                producto.getPrecio()
+                    producto.getIdProducto(),
+                    producto.getNombre(),
+                    producto.getDescripcion(),
+                    producto.getExistencia(),
+                    producto.getPrecio()
             });
         }
 
@@ -55,22 +60,26 @@ public class ResultadosWindow {
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(600, 400));
-        
+
         JButton volverButton = new JButton("Volver al Menú Principal");
 
-        frame.add(scrollPane);
-        frame.add(volverButton);
-        frame.setLayout(new FlowLayout());
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(volverButton, BorderLayout.SOUTH);
 
         volverButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // Cierra la ventana de resultados
-                new MainMenuWindow(sistema,usuario); // Abre la ventana del menú principal
-            }
+                // Ocultar el panel de resultados y mostrar el menú principal
+                panel.setVisible(false);            }
         });
-        
-        frame.pack();
-        frame.setVisible(true);
+    }
+
+    /**
+     * Obtén el panel principal de la ventana.
+     *
+     * @return El panel principal de la ventana.
+     */
+    public JPanel getPanel() {
+        return panel;
     }
 }

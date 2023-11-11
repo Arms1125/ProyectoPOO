@@ -14,14 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Proyecto.*;
 
-/**
- * La clase BuscarProductoWindow representa una ventana de búsqueda de producto
- * en el inventario.
- */
 public class BuscarProductoWindow {
 
-    private JDialog dialog;  // Ventana de diálogo.
-    private JTextField idField;  // Campo de texto para ingresar el ID del producto a buscar.
+    private JPanel panel;
+    private JTextField idField;
 
     /**
      * Constructor para crear un objeto de la clase BuscarProductoWindow.
@@ -30,10 +26,8 @@ public class BuscarProductoWindow {
      * gestiona la lógica de la aplicación.
      */
     public BuscarProductoWindow(SistemaGestionInventarios sistema) {
-        dialog = new JDialog();
-        dialog.setTitle("Buscar Producto");
-        dialog.setSize(300, 100);
-        dialog.setLayout(new GridLayout(2, 2));
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 2));
 
         JLabel idLabel = new JLabel("ID del Producto:");
         idField = new JTextField();
@@ -42,12 +36,12 @@ public class BuscarProductoWindow {
 
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        dialog.add(idLabel);
-        dialog.add(idField);
-        dialog.add(new JLabel("")); // Espacio en blanco
-        dialog.add(buscarButton);
-        dialog.add(new JLabel("")); // Espacio en blanco
-        dialog.add(regresarButton);
+        panel.add(idLabel);
+        panel.add(idField);
+        panel.add(new JLabel("")); 
+        panel.add(buscarButton);
+        panel.add(new JLabel("")); 
+        panel.add(regresarButton);
 
         buscarButton.addActionListener(new ActionListener() {
             @Override
@@ -57,13 +51,12 @@ public class BuscarProductoWindow {
                     Producto productoBuscado = sistema.buscarProductoEnInventario(id);
 
                     if (productoBuscado != null) {
-                        // Mostrar los detalles del producto encontrado
-                        JOptionPane.showMessageDialog(dialog, "Producto encontrado:\n" + productoBuscado.toString());
+                        JOptionPane.showMessageDialog(panel, "Producto encontrado:\n" + productoBuscado.toString());
                     } else {
-                        JOptionPane.showMessageDialog(dialog, "Producto no encontrado en el inventario.");
+                        JOptionPane.showMessageDialog(panel, "Producto no encontrado en el inventario.");
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dialog, "Por favor, ingrese un ID válido.");
+                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese un ID válido.");
                 }
                 idField.setText("");
             }
@@ -72,10 +65,23 @@ public class BuscarProductoWindow {
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dialog.dispose(); // Cierra la ventana de diálogo actual
-                new MainMenuWindow(sistema, sistema.usuarioLogueado); // Abre el menú principal
+                // Realizar acciones adicionales si es necesario
+                // ...
+                panel.setVisible(false); // Ocultar el panel actual
             }
         });
-        dialog.setVisible(true);
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+    
+    public JFrame getFrame() {
+        JFrame frame = new JFrame("Buscar Producto");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(300, 100);
+        frame.setLayout(new BorderLayout());
+        frame.add(panel, BorderLayout.CENTER);
+        return frame;
     }
 }

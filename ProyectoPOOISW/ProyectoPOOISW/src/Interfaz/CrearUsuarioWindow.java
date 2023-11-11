@@ -12,24 +12,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import Proyecto.*;
 
 public class CrearUsuarioWindow {
-    private JFrame frame;
+
+    private JPanel panel; // Panel principal que contendrá los componentes.
     private JTextField idField;
     private JTextField nombreField;
     private JPasswordField contraseñaField;
     private JComboBox<String> rolComboBox;
     private SistemaGestionInventarios sistema;
 
+    /**
+     * Constructor para crear un objeto de la clase CrearUsuarioWindow.
+     *
+     * @param sistema Un objeto de la clase SistemaGestionInventarios que gestiona la lógica de la aplicación.
+     */
     public CrearUsuarioWindow(SistemaGestionInventarios sistema) {
         this.sistema = sistema;
-
-        frame = new JFrame("Crear Nuevo Usuario");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(300, 200);
-        frame.setLayout(new GridLayout(5, 2));
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 2));
 
         JLabel idLabel = new JLabel("ID de Usuario:");
         idField = new JTextField();
@@ -42,52 +44,68 @@ public class CrearUsuarioWindow {
         rolComboBox = new JComboBox<>(roles);
 
         JButton crearUsuarioButton = new JButton("Crear Usuario");
-        
+
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        frame.add(idLabel);
-        frame.add(idField);
-        frame.add(new JLabel(""));
-        frame.add(nombreLabel);
-        frame.add(nombreField);
-        frame.add(new JLabel(""));
-        frame.add(contraseñaLabel);
-        frame.add(contraseñaField);
-        frame.add(new JLabel(""));
-        frame.add(rolLabel);
-        frame.add(rolComboBox);
-        frame.add(new JLabel("")); // Espacio en blanco
-        frame.add(crearUsuarioButton);
-        frame.add(regresarButton);
+        panel.add(idLabel);
+        panel.add(idField);
+        panel.add(new JLabel(""));
+        panel.add(nombreLabel);
+        panel.add(nombreField);
+        panel.add(new JLabel(""));
+        panel.add(contraseñaLabel);
+        panel.add(contraseñaField);
+        panel.add(new JLabel(""));
+        panel.add(rolLabel);
+        panel.add(rolComboBox);
+        panel.add(new JLabel("")); 
+        panel.add(crearUsuarioButton);
+        panel.add(regresarButton);
 
         crearUsuarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int id = Integer.parseInt(idField.getText());
-                String nombre = nombreField.getText();
-                char[] contraseñaChars = contraseñaField.getPassword();
-                String contraseña = new String(contraseñaChars);
-                String rol = (String) rolComboBox.getSelectedItem();
+                try {
+                    int id = Integer.parseInt(idField.getText());
+                    String nombre = nombreField.getText();
+                    char[] contraseñaChars = contraseñaField.getPassword();
+                    String contraseña = new String(contraseñaChars);
+                    String rol = (String) rolComboBox.getSelectedItem();
 
-                Usuario usuarioLogueado = sistema.usuarioLogueado;
+                    Usuario usuarioLogueado = sistema.usuarioLogueado;
 
-                if (usuarioLogueado != null && usuarioLogueado.getRol().equals("Administrador")) {
-                    Usuario nuevoUsuario = new Usuario(id, nombre, contraseña, rol);
-                    sistema.agregarUsuario(nuevoUsuario);
-                    JOptionPane.showMessageDialog(frame, "Usuario creado con éxito.");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "No tiene permisos para crear usuarios.");
+                    if (usuarioLogueado != null && usuarioLogueado.getRol().equals("Administrador")) {
+                        Usuario nuevoUsuario = new Usuario(id, nombre, contraseña, rol);
+                        sistema.agregarUsuario(nuevoUsuario);
+                        JOptionPane.showMessageDialog(panel, "Usuario creado con éxito.");
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "No tiene permisos para crear usuarios.");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese un ID válido.");
                 }
+                idField.setText("");
+                nombreField.setText("");
+                contraseñaField.setText("");
             }
         });
-        
+
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // Cierra la ventana de diálogo actual
-                new MainMenuWindow(sistema, sistema.usuarioLogueado); // Abre el menú principal
+                // Realizar acciones adicionales si es necesario
+                // ...
+                panel.setVisible(false); // Ocultar el panel actual
             }
         });
-        frame.setVisible(true);
+    }
+
+    /**
+     * Obtén el panel principal de la ventana.
+     *
+     * @return El panel principal de la ventana.
+     */
+    public JPanel getPanel() {
+        return panel;
     }
 }
