@@ -38,8 +38,8 @@ public class EditarProductoWindow {
         JLabel idLabel = new JLabel("ID del Producto a Editar:");
         idField = new JTextField();
 
-        JLabel campoLabel = new JLabel("Campo a Editar (nombre, descripcion, existencia o precio):");
-        String[] roles = {"nombre", "descripcion", "exixtencia","precio"};
+        JLabel campoLabel = new JLabel("Campo a Editar");
+        String[] roles = {"nombre", "descripcion", "existencia","precio"};
         rolComboBox = new JComboBox<>(roles);
 
         JLabel nuevoValorLabel = new JLabel("Nuevo Valor:");

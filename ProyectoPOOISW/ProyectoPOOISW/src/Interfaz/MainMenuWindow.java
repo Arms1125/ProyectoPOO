@@ -48,21 +48,28 @@ public class MainMenuWindow {
         toolBar.add(eliminarProductoButton);
         toolBar.add(listarProductosButton);
 
-
         // Panel principal
         usuarioPanel = new JPanel();
-        usuarioPanel.setSize(200, 600);
+        usuarioPanel.setLayout(new BoxLayout(usuarioPanel, BoxLayout.Y_AXIS));
+        usuarioPanel.setSize(300, 600);
         mainPanel = new JPanel();
         mainPanel.setLayout(new CardLayout());
 
-        
-        //botones del panel
+        //imagen usuarioPanel
+        ImageIcon icon = new ImageIcon("src/img/usuario.png");
+        JLabel imagen = new JLabel(icon);
+
+        //añadir objetos al usuarioPanel
+        usuarioPanel.add(Box.createRigidArea(new Dimension(0, 100)));
+        usuarioPanel.add(imagen);
+        usuarioPanel.add(Box.createRigidArea(new Dimension(0, 130)));
         usuarioPanel.add(crearUsuarioButton);
+        usuarioPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         usuarioPanel.add(cerrarSesionButton);
-        
+
         //añadir toolbar y paneles
         frame.add(toolBar, BorderLayout.NORTH);
-        frame.add(usuarioPanel,BorderLayout.WEST);
+        frame.add(usuarioPanel, BorderLayout.WEST);
         frame.add(mainPanel, BorderLayout.CENTER);
 
         // Acciones de los botones
