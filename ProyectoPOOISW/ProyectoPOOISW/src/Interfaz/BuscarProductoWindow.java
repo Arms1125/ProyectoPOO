@@ -38,9 +38,8 @@ public class BuscarProductoWindow {
 
         panel.add(idLabel);
         panel.add(idField);
-        panel.add(new JLabel("")); 
+        //panel.add(new JLabel("")); 
         panel.add(buscarButton);
-        panel.add(new JLabel("")); 
         panel.add(regresarButton);
 
         buscarButton.addActionListener(new ActionListener() {

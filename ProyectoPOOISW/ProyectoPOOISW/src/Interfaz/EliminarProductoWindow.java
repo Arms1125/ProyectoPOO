@@ -40,9 +40,8 @@ public class EliminarProductoWindow {
 
         panel.add(idLabel);
         panel.add(idField);
-        panel.add(new JLabel("")); // Espacio en blanco
+        //panel.add(new JLabel("")); // Espacio en blanco
         panel.add(eliminarButton);
-        panel.add(new JLabel("")); // Espacio en blanco
         panel.add(regresarButton);
 
         eliminarButton.addActionListener(new ActionListener() {

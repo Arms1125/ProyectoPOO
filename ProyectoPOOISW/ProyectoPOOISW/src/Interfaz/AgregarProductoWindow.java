@@ -54,19 +54,19 @@ public class AgregarProductoWindow {
 
         panel.add(idLabel);
         panel.add(idField);
-        panel.add(new JLabel("")); 
+        //panel.add(new JLabel("")); 
         panel.add(nombreLabel);
         panel.add(nombreField);
-        panel.add(new JLabel("")); 
+        //panel.add(new JLabel("")); 
         panel.add(descripcionLabel);
         panel.add(descripcionField);
-        panel.add(new JLabel("")); 
+        //panel.add(new JLabel("")); 
         panel.add(existenciaLabel);
         panel.add(existenciaField);
-        panel.add(new JLabel("")); 
+        //panel.add(new JLabel("")); 
         panel.add(precioLabel);
         panel.add(precioField);
-        panel.add(new JLabel("")); 
+        //panel.add(new JLabel("")); 
         panel.add(agregarButton);
         panel.add(regresarButton);
 

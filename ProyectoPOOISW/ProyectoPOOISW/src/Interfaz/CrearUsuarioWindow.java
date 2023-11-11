@@ -49,16 +49,16 @@ public class CrearUsuarioWindow {
 
         panel.add(idLabel);
         panel.add(idField);
-        panel.add(new JLabel(""));
+        //panel.add(new JLabel(""));
         panel.add(nombreLabel);
         panel.add(nombreField);
-        panel.add(new JLabel(""));
+        //panel.add(new JLabel(""));
         panel.add(contraseñaLabel);
         panel.add(contraseñaField);
-        panel.add(new JLabel(""));
+        //panel.add(new JLabel(""));
         panel.add(rolLabel);
         panel.add(rolComboBox);
-        panel.add(new JLabel("")); 
+        //panel.add(new JLabel("")); 
         panel.add(crearUsuarioButton);
         panel.add(regresarButton);
 

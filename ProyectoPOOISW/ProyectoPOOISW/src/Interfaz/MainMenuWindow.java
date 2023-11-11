@@ -28,6 +28,7 @@ public class MainMenuWindow {
     public MainMenuWindow(SistemaGestionInventarios sistema, Usuario usuario) {
         frame = new JFrame("Menú Principal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
         frame.setSize(800, 600); // Tamaño ajustable
         frame.setLayout(new BorderLayout());
 

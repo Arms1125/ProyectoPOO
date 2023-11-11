@@ -48,13 +48,13 @@ public class EditarProductoWindow {
 
         panel.add(idLabel);
         panel.add(idField);
-        panel.add(new JLabel("")); // Espacio en blanco
+        //panel.add(new JLabel("")); // Espacio en blanco
         panel.add(campoLabel);
         panel.add(campoField);
-        panel.add(new JLabel("")); // Espacio en blanco
+        //panel.add(new JLabel("")); // Espacio en blanco
         panel.add(nuevoValorLabel);
         panel.add(nuevoValorField);
-        panel.add(new JLabel("")); // Espacio en blanco
+        //panel.add(new JLabel("")); // Espacio en blanco
         panel.add(editarButton);
         panel.add(regresarButton);
 
