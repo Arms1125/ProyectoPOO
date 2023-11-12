@@ -38,17 +38,8 @@ public class Main {
             sistema.getInventario().setProductos(productosCargados);
         }
 
-        // Crear usuarios de ejemplo
-        Usuario usuario1 = new Usuario(1, "usuario1", "contraseña1", "Administrador");
-        Usuario usuario2 = new Usuario(2, "usuario2", "contraseña2", "Usuario Regular");
-
-        // Agregar los usuarios al sistema
-        sistema.agregarUsuario(usuario1);
-        sistema.agregarUsuario(usuario2);
-
         // Iniciar la ventana de inicio de sesión
         LoginWindow ini = new LoginWindow(sistema);
-        
+
     }
 }
-

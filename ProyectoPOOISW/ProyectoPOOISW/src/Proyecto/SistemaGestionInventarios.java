@@ -32,7 +32,21 @@ public class SistemaGestionInventarios {
      * @param usuario El objeto Usuario que se desea agregar.
      */
     public void agregarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
+        if (!existeUsuarioConId(usuario.getIdUsuario())) {
+            usuarios.add(usuario);
+            JOptionPane.showMessageDialog(dialog, "Usuario creado con éxito.");
+        } else {
+            JOptionPane.showMessageDialog(dialog, "Ya existe un usuario con el mismo ID. No se puede agregar.");
+        }
+    }
+
+    private boolean existeUsuarioConId(int idUsuario) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getIdUsuario() == idUsuario) {
+                return true; // Ya existe un usuario con el mismo ID
+            }
+        }
+        return false; // No hay usuario con el mismo ID
     }
 
     /**

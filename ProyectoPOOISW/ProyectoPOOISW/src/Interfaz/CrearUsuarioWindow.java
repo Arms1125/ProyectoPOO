@@ -77,7 +77,6 @@ public class CrearUsuarioWindow {
                     if (usuarioLogueado != null && usuarioLogueado.getRol().equals("Administrador")) {
                         Usuario nuevoUsuario = new Usuario(id, nombre, contraseña, rol);
                         sistema.agregarUsuario(nuevoUsuario);
-                        JOptionPane.showMessageDialog(panel, "Usuario creado con éxito.");
                     } else {
                         JOptionPane.showMessageDialog(panel, "No tiene permisos para crear usuarios.");
                     }
