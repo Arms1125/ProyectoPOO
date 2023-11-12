@@ -8,22 +8,22 @@ package Interfaz;
  *
  * @author arman
  */
-import Archivos.GuardarArchivo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import javax.swing.BorderFactory;
 import Proyecto.*;
+import Archivos.*;
 
-/**
- * La clase LoginWindow representa la ventana de inicio de sesión de la
- * aplicación.
- */
 public class LoginWindow {
 
     private JFrame frame;  // Marco de la ventana.
     private JTextField usernameField;  // Campo de texto para el nombre de usuario.
     private JPasswordField passwordField;  // Campo de contraseña.
+    private JPanel panel;  // Panel en el centro con labels, fields y botones.
 
     /**
      * Constructor para crear un objeto de la clase LoginWindow.
@@ -34,28 +34,44 @@ public class LoginWindow {
     public LoginWindow(SistemaGestionInventarios sistema) {
         frame = new JFrame("Inicio de Sesión");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 150);
-        frame.setLayout(new GridLayout(3, 1));
+        frame.setSize(400, 250);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+
+        // Fondo de la ventana con una imagen
+        ImageIcon background = new ImageIcon("src/img/fondo.png");
+        Image img = background.getImage();
+        Image tempImg = img.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
+        background = new ImageIcon(tempImg);
+        JLabel backgroundLabel = new JLabel(background);
+        frame.setContentPane(backgroundLabel);
+
+        // Panel en el centro con labels, fields y botones
+        panel = new JPanel();
+        panel.setSize(300, 170);
+        panel.setLocation(40, 25);
+        panel.setLayout(new GridLayout(3, 2));
 
         JLabel usernameLabel = new JLabel("Nombre de Usuario:");
         usernameField = new JTextField();
+        usernameField.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         JLabel passwordLabel = new JLabel("Contraseña:");
         passwordField = new JPasswordField();
+        passwordField.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         JButton loginButton = new JButton("Iniciar Sesión");
-
         JButton closeButton = new JButton("Cerrar Aplicación");
 
-        frame.add(usernameLabel);
-        frame.add(usernameField);
-        frame.add(new JLabel(""));
-        frame.add(passwordLabel);
-        frame.add(passwordField);
-        frame.add(new JLabel("")); // Espacio en blanco
-        frame.add(loginButton);
-        frame.add(closeButton);
-
+        panel.add(usernameLabel);
+        panel.add(usernameField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(loginButton);
+        panel.add(closeButton);
+        frame.add(panel);
+        
+        // Acciones de los botones
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,6 +87,7 @@ public class LoginWindow {
                 } else {
                     JOptionPane.showMessageDialog(frame, "Inicio de sesión fallido. Verifica tus credenciales.");
                 }
+
             }
         });
 

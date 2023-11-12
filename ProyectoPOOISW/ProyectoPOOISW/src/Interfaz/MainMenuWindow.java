@@ -31,6 +31,7 @@ public class MainMenuWindow {
         frame.setResizable(false);
         frame.setSize(800, 600); // Tamaño ajustable
         frame.setLayout(new BorderLayout());
+        frame.setLocationRelativeTo(null);
 
         // Barra de herramientas
         toolBar = new JToolBar();
