@@ -14,9 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Proyecto.*;
 
-public class EditarProductoWindow {
+public class EditarProductoWindow extends JPanel {
 
-    private JPanel panel; // Panel principal que contendrá los componentes.
     private JTextField idField;  // Campo de texto para ingresar el ID del producto a editar.
     private JTextField nuevoValorField;  // Campo de texto para ingresar el nuevo valor del campo.
     private SistemaGestionInventarios sistema;
@@ -32,8 +31,7 @@ public class EditarProductoWindow {
      */
     public EditarProductoWindow(SistemaGestionInventarios sistema, Usuario usuario) {
         this.sistema = sistema;
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 2));
+        setLayout(new GridLayout(4, 2));
 
         JLabel idLabel = new JLabel("ID del Producto a Editar:");
         idField = new JTextField();
@@ -49,17 +47,17 @@ public class EditarProductoWindow {
 
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        panel.add(idLabel);
-        panel.add(idField);
+        add(idLabel);
+        add(idField);
         //panel.add(new JLabel("")); // Espacio en blanco
-        panel.add(campoLabel);
-        panel.add(rolComboBox);
+        add(campoLabel);
+        add(rolComboBox);
         //panel.add(new JLabel("")); // Espacio en blanco
-        panel.add(nuevoValorLabel);
-        panel.add(nuevoValorField);
+        add(nuevoValorLabel);
+        add(nuevoValorField);
         //panel.add(new JLabel("")); // Espacio en blanco
-        panel.add(editarButton);
-        panel.add(regresarButton);
+        add(editarButton);
+        add(regresarButton);
 
         editarButton.addActionListener(new ActionListener() {
             @Override
@@ -74,11 +72,11 @@ public class EditarProductoWindow {
                     if (producto != null) {
                         sistema.editarProducto(usuario, producto, campo, nuevoValor);
                     } else {
-                        JOptionPane.showMessageDialog(panel, "Producto no encontrado en el inventario.");
+                        JOptionPane.showMessageDialog(null, "Producto no encontrado en el inventario.");
                     }
 
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese valores válidos.");
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese valores válidos.");
                 }
                 idField.setText("");
                 nuevoValorField.setText("");
@@ -90,17 +88,9 @@ public class EditarProductoWindow {
             public void actionPerformed(ActionEvent e) {
                 // Realizar acciones adicionales si es necesario
                 // ...
-                panel.setVisible(false); // Ocultar el panel actual
+                setVisible(false); // Ocultar el panel actual
             }
         });
     }
 
-    /**
-     * Obtén el panel principal de la ventana.
-     *
-     * @return El panel principal de la ventana.
-     */
-    public JPanel getPanel() {
-        return panel;
-    }
 }

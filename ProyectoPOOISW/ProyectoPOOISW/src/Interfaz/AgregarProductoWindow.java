@@ -14,9 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Proyecto.*;
 
-public class AgregarProductoWindow {
+public class AgregarProductoWindow extends JPanel {
 
-    private JPanel panel;  // Panel principal que contendrá los componentes.
     private JTextField idField;  
     private JTextField nombreField;
     private JTextField descripcionField;
@@ -30,8 +29,7 @@ public class AgregarProductoWindow {
      * @param usuario Un objeto de la clase usuario que gestiona el rol del usuario.
      */
     public AgregarProductoWindow(SistemaGestionInventarios sistema, Usuario usuario) {
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(7, 2));
+        setLayout(new GridLayout(7, 2));
 
         JLabel idLabel = new JLabel("ID del Producto:");
         idField = new JTextField();
@@ -52,23 +50,23 @@ public class AgregarProductoWindow {
 
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        panel.add(idLabel);
-        panel.add(idField);
+        add(idLabel);
+        add(idField);
         //panel.add(new JLabel("")); 
-        panel.add(nombreLabel);
-        panel.add(nombreField);
+        add(nombreLabel);
+        add(nombreField);
         //panel.add(new JLabel("")); 
-        panel.add(descripcionLabel);
-        panel.add(descripcionField);
+        add(descripcionLabel);
+        add(descripcionField);
         //panel.add(new JLabel("")); 
-        panel.add(existenciaLabel);
-        panel.add(existenciaField);
+        add(existenciaLabel);
+        add(existenciaField);
         //panel.add(new JLabel("")); 
-        panel.add(precioLabel);
-        panel.add(precioField);
+        add(precioLabel);
+        add(precioField);
         //panel.add(new JLabel("")); 
-        panel.add(agregarButton);
-        panel.add(regresarButton);
+        add(agregarButton);
+        add(regresarButton);
 
         agregarButton.addActionListener(new ActionListener() {
             @Override
@@ -84,7 +82,7 @@ public class AgregarProductoWindow {
                     sistema.agregarProductoAlInventario(usuario, nuevoProducto);
 
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese valores válidos.");
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese valores válidos.");
                 }
                 idField.setText("");
                 nombreField.setText("");
@@ -99,12 +97,9 @@ public class AgregarProductoWindow {
             public void actionPerformed(ActionEvent e) {
                 // Realizar acciones adicionales si es necesario
                 // ...
-                panel.setVisible(false); // Ocultar el panel actual
+                setVisible(false); // Ocultar el panel actual
             }
         });
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
 }

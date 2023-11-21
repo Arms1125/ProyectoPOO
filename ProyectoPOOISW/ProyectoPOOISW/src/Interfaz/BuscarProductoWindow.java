@@ -14,9 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Proyecto.*;
 
-public class BuscarProductoWindow {
+public class BuscarProductoWindow extends JPanel {
 
-    private JPanel panel;
     private JTextField idField;
 
     /**
@@ -26,8 +25,7 @@ public class BuscarProductoWindow {
      * gestiona la lógica de la aplicación.
      */
     public BuscarProductoWindow(SistemaGestionInventarios sistema) {
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 2));
+        setLayout(new GridLayout(2, 2));
 
         JLabel idLabel = new JLabel("ID del Producto:");
         idField = new JTextField();
@@ -36,11 +34,11 @@ public class BuscarProductoWindow {
 
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        panel.add(idLabel);
-        panel.add(idField);
+        add(idLabel);
+        add(idField);
         //panel.add(new JLabel("")); 
-        panel.add(buscarButton);
-        panel.add(regresarButton);
+        add(buscarButton);
+        add(regresarButton);
 
         buscarButton.addActionListener(new ActionListener() {
             @Override
@@ -50,12 +48,12 @@ public class BuscarProductoWindow {
                     Producto productoBuscado = sistema.buscarProductoEnInventario(id);
 
                     if (productoBuscado != null) {
-                        JOptionPane.showMessageDialog(panel, "Producto encontrado:\n" + productoBuscado.toString());
+                        JOptionPane.showMessageDialog(null, "Producto encontrado:\n" + productoBuscado.toString());
                     } else {
-                        JOptionPane.showMessageDialog(panel, "Producto no encontrado en el inventario.");
+                        JOptionPane.showMessageDialog(null, "Producto no encontrado en el inventario.");
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese un ID válido.");
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
                 }
                 idField.setText("");
             }
@@ -66,21 +64,9 @@ public class BuscarProductoWindow {
             public void actionPerformed(ActionEvent e) {
                 // Realizar acciones adicionales si es necesario
                 // ...
-                panel.setVisible(false); // Ocultar el panel actual
+                setVisible(false); // Ocultar el panel actual
             }
         });
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
-    
-    public JFrame getFrame() {
-        JFrame frame = new JFrame("Buscar Producto");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(300, 100);
-        frame.setLayout(new BorderLayout());
-        frame.add(panel, BorderLayout.CENTER);
-        return frame;
-    }
 }

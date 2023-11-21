@@ -14,22 +14,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Proyecto.*;
 
-public class EliminarProductoWindow {
+public class EliminarProductoWindow extends JPanel {
 
-    private JPanel panel;  // Panel principal que contendrá los componentes.
     private JTextField idField;  // Campo de texto para ingresar el ID del producto a eliminar.
     private SistemaGestionInventarios sistema;
 
     /**
      * Constructor para crear un objeto de la clase EliminarProductoWindow.
      *
-     * @param sistema Un objeto de la clase SistemaGestionInventarios que gestiona la lógica de la aplicación.
-     * @param usuario Un objeto de la clase usuario que gestiona el rol del usuario.
+     * @param sistema Un objeto de la clase SistemaGestionInventarios que
+     * gestiona la lógica de la aplicación.
+     * @param usuario Un objeto de la clase usuario que gestiona el rol del
+     * usuario.
      */
     public EliminarProductoWindow(SistemaGestionInventarios sistema, Usuario usuario) {
         this.sistema = sistema;
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 2));
+        setLayout(new GridLayout(2, 2));
 
         JLabel idLabel = new JLabel("ID del Producto a Eliminar:");
         idField = new JTextField();
@@ -38,11 +38,11 @@ public class EliminarProductoWindow {
 
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        panel.add(idLabel);
-        panel.add(idField);
+        add(idLabel);
+        add(idField);
         //panel.add(new JLabel("")); // Espacio en blanco
-        panel.add(eliminarButton);
-        panel.add(regresarButton);
+        add(eliminarButton);
+        add(regresarButton);
 
         eliminarButton.addActionListener(new ActionListener() {
             @Override
@@ -55,11 +55,11 @@ public class EliminarProductoWindow {
                         // Realiza la eliminación del producto en el inventario
                         sistema.eliminarProducto(usuario, productoAEliminar);
                     } else {
-                        JOptionPane.showMessageDialog(panel, "Producto no encontrado en el inventario.");
+                        JOptionPane.showMessageDialog(null, "Producto no encontrado en el inventario.");
                     }
 
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese un ID válido.");
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
                 }
                 idField.setText("");
             }
@@ -71,17 +71,8 @@ public class EliminarProductoWindow {
             public void actionPerformed(ActionEvent e) {
                 // Realizar acciones adicionales si es necesario
                 // ...
-                panel.setVisible(false); // Ocultar el panel actual
+                setVisible(false); // Ocultar el panel actual
             }
         });
-    }
-
-    /**
-     * Obtén el panel principal de la ventana.
-     *
-     * @return El panel principal de la ventana.
-     */
-    public JPanel getPanel() {
-        return panel;
     }
 }

@@ -14,9 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Proyecto.*;
 
-public class CrearUsuarioWindow {
+public class CrearUsuarioWindow extends JPanel{
 
-    private JPanel panel; // Panel principal que contendrá los componentes.
     private JTextField idField;
     private JTextField nombreField;
     private JPasswordField contraseñaField;
@@ -30,8 +29,7 @@ public class CrearUsuarioWindow {
      */
     public CrearUsuarioWindow(SistemaGestionInventarios sistema) {
         this.sistema = sistema;
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 2));
+        setLayout(new GridLayout(5, 2));
 
         JLabel idLabel = new JLabel("ID de Usuario:");
         idField = new JTextField();
@@ -47,20 +45,20 @@ public class CrearUsuarioWindow {
 
         JButton regresarButton = new JButton("Regresar al Menú Principal");
 
-        panel.add(idLabel);
-        panel.add(idField);
+        add(idLabel);
+        add(idField);
         //panel.add(new JLabel(""));
-        panel.add(nombreLabel);
-        panel.add(nombreField);
+        add(nombreLabel);
+        add(nombreField);
         //panel.add(new JLabel(""));
-        panel.add(contraseñaLabel);
-        panel.add(contraseñaField);
+        add(contraseñaLabel);
+        add(contraseñaField);
         //panel.add(new JLabel(""));
-        panel.add(rolLabel);
-        panel.add(rolComboBox);
+        add(rolLabel);
+        add(rolComboBox);
         //panel.add(new JLabel("")); 
-        panel.add(crearUsuarioButton);
-        panel.add(regresarButton);
+        add(crearUsuarioButton);
+        add(regresarButton);
 
         crearUsuarioButton.addActionListener(new ActionListener() {
             @Override
@@ -78,10 +76,10 @@ public class CrearUsuarioWindow {
                         Usuario nuevoUsuario = new Usuario(id, nombre, contraseña, rol);
                         sistema.agregarUsuario(nuevoUsuario);
                     } else {
-                        JOptionPane.showMessageDialog(panel, "No tiene permisos para crear usuarios.");
+                        JOptionPane.showMessageDialog(null, "No tiene permisos para crear usuarios.");
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(panel, "Por favor, ingrese un ID válido.");
+                    JOptionPane.showMessageDialog(null, "Por favor, ingrese un ID válido.");
                 }
                 idField.setText("");
                 nombreField.setText("");
@@ -94,17 +92,9 @@ public class CrearUsuarioWindow {
             public void actionPerformed(ActionEvent e) {
                 // Realizar acciones adicionales si es necesario
                 // ...
-                panel.setVisible(false); // Ocultar el panel actual
+                setVisible(false); // Ocultar el panel actual
             }
         });
     }
 
-    /**
-     * Obtén el panel principal de la ventana.
-     *
-     * @return El panel principal de la ventana.
-     */
-    public JPanel getPanel() {
-        return panel;
-    }
 }
